@@ -1,6 +1,6 @@
 ﻿$N_weeks_ago = 1
-calc_man_hour(extract_calender_items($N_weeks_ago))
-
+$work_hours_hash = calc_work_hours(extract_calender_items($N_weeks_ago))
+$work_hours_hash.GetEnumerator() | Export-Csv -NoTypeInformation -Path ./work_hours.csv 
 
 #get your calender items as a hash 
 Function extract_calender_items($N_weeks_ago){
@@ -40,7 +40,7 @@ Function get_lastMonday ($N_weeks_ago){
 
 #arrange and consolidate "WeeklyCalendarItems"
 #get a hash {category, sum of durations}
-Function calc_man_hour($WeeklyCalendarItems){
+Function calc_work_hours($WeeklyCalendarItems){
     $i = 0
     $hours_per_category_hash = @{}
     $WeeklyCalendarItems.Categories | foreach{
